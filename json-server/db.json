@@ -41,6 +41,21 @@
       "id": 1,
       "nombre": "submodulo 2",
       "idmodulo": 5
+    },
+    {
+      "nombre": "submodolo 77",
+      "idmodulo": 1,
+      "id": 3
+    },
+    {
+      "nombre": "submodulo de modulo 44",
+      "idmodulo": 4,
+      "id": 4
+    },
+    {
+      "nombre": "submodulo 2 de modulo 4",
+      "idmodulo": 4,
+      "id": 5
     }
   ],
   "leadership": [

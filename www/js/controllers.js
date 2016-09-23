@@ -169,7 +169,9 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('submoduleCtrl', function($scope, $state, $stateParams, ListFactory) {
+.controller('submoduleCtrl', function($scope, $state, $stateParams, SublistFactory, ListFactory) {
+
+
 
   ListFactory.getListModule().query(
   function(response) {
@@ -180,18 +182,37 @@ angular.module('starter.controllers', ['starter.services'])
   });
 
   var state = angular.fromJson($stateParams.data);
+
   $scope.buttonSubmit = 'Guardar';
   $scope.submodulo = {
     "nombre": '',
-    "codmodulo": ''
+    "idmodulo": ''
   };
+
+  console.log(state);
 
   if (angular.equals({}, state)) {
     $scope.buttonSubmit = 'Guardar';
   } else {
-    $scope.modulo = state;
+   
+    $scope.submodulo = state;
+     console.log($scope.submodulo);
     $scope.buttonSubmit = 'Actualizar';
   }
+
+   $scope.submitForm = function() {
+    if (angular.equals({}, state)) {
+      console.log($scope.submodulo);
+      SublistFactory.getListSubmodule().save($scope.submodulo);
+    } else {
+      console.log($scope.submodulo);
+      SublistFactory.getListSubmodule().update({
+        id: $scope.submodulo.id
+      }, $scope.submodulo);
+    }
+
+    $state.go("app.moduleList");
+  };
 
 
 })

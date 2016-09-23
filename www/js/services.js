@@ -18,7 +18,7 @@ angular.module('starter.services', ['ngResource'])
 .service('SublistFactory', function($resource, myConfig) {
 
   this.getListSubmodule = function() {
-    return $resource(myConfig.url + "submodulo/", null, {
+    return $resource(myConfig.url + "submodulo/:id", null, {
       'update': {
         method: 'PUT'
       },
