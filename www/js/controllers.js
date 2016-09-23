@@ -123,6 +123,37 @@ angular.module('starter.controllers', ['starter.services'])
 })
 
 .controller('sublistsCtrl', function($scope, $state, $stateParams, SublistFactory) {
+  console.log($stateParams);
+  $scope.shouldShowDelete = false;
+
+  $scope.showDelete = function() {
+    $scope.shouldShowDelete = !$scope.shouldShowDelete;
+  };
+
+  $scope.update = function(data) {
+    console.log(data);
+    $state.go("app.submodule", {
+      data: JSON.stringify(data)
+    });
+
+  };
+
+  $scope.create = function() {
+    $state.go("app.submodule", {
+      data: '{}'
+    });
+
+  };
+
+  $scope.delete = function(id) {
+    console.log(id);
+    SublistFactory.getListModule().delete({
+      id: id
+    }, function(resp) {
+      console.log(resp)
+    });
+  };
+
   console.log(parseInt($stateParams.id));
   SublistFactory.getListSubmodule().query({
       idmodulo: parseInt($stateParams.id)
@@ -135,6 +166,33 @@ angular.module('starter.controllers', ['starter.services'])
       function(response) {
         console.log("Error: " + response.status + " " + response.statusText);
       });
+
+})
+
+.controller('submoduleCtrl', function($scope, $state, $stateParams, ListFactory) {
+
+  ListFactory.getListModule().query(
+  function(response) {
+   $scope.optionSelect = response;
+  },
+  function(response) {
+    console.log("Error: " + response.status + " " + response.statusText);
+  });
+
+  var state = angular.fromJson($stateParams.data);
+  $scope.buttonSubmit = 'Guardar';
+  $scope.submodulo = {
+    "nombre": '',
+    "codmodulo": ''
+  };
+
+  if (angular.equals({}, state)) {
+    $scope.buttonSubmit = 'Guardar';
+  } else {
+    $scope.modulo = state;
+    $scope.buttonSubmit = 'Actualizar';
+  }
+
 
 })
 

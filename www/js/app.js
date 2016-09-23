@@ -76,6 +76,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
       }
     })
+    .state('app.submodule', {
+      url: '/submodule/:data',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/submodule.html',
+          controller: 'submoduleCtrl'
+        }
+      }
+    })
 
   .state('app.single', {
     url: '/playlists/:playlistId',

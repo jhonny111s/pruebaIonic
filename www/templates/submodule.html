@@ -1,0 +1,40 @@
+<ion-view view-title="{{data.nombre}}">
+  <ion-content class="padding">
+    <form name="authorizationForm" novalidate ng-submit="submitForm()">
+
+      <div class="list list-inset">
+        holita
+        <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : authorizationForm.modulo.$invalid, 'no-errors' : authorizationForm.modulo.$valid}">
+                  <span class="input-label">Submódulo</span>
+                  <input type="text" name="modulo" ng-model="modulo.nombre" ng-minlength="5" ng-maxlength="20" required>
+                </label>
+
+        <div class="error-container" ng-show="authorizationForm.modulo.$error" ng-messages="authorizationForm.modulo.$error">
+          <p>Error</p>
+        </div>
+
+        <label class="item item-input item-stacked-label" ng-class="{ 'has-errors' : authorizationForm.codigo.$invalid && authorizationForm.$submitted, 'no-errors' : authorizationForm.codigo.$valid  && authorizationForm.$submitted}">
+                  <span class="input-label">Código</span>
+                  <input type="text" name="codigo" ng-model="modulo.codmodulo" ng-minlength="5" ng-maxlength="20" required>
+                </label>
+
+        <label for="singleSelect" class="item item-input item-stacked-label"> Módulo </label><br>
+        <select name="singleSelect" id="singleSelect" ng-model="data.singleSelect">
+                    <option ng-repeat="option in optionSelect" value="{{option.idmodulo}}">{{option.nombre}}</option>
+                    </select>
+        </label>
+
+
+        <div class="error-container last-error-container" ng-show="authorizationForm.codigo.$error && authorizationForm.$submitted" ng-messages="authorizationForm.codigo.$error">
+          <p>Error</p>
+        </div>
+
+      </div>
+
+      <button class="button button-full button-positive" type="submit">
+                {{buttonSubmit}}
+              </button>
+
+    </form>
+  </ion-content>
+</ion-view>
