@@ -73,6 +73,12 @@ angular.module('starter.controllers', ['starter.services'])
     });
   };
 
+  $scope.findSub = function(id) {
+    $state.go("app.submoduleList", {
+      id: JSON.stringify(id)
+    });
+  };
+
   ListFactory.getListModule().query(
     function(response) {
       console.log(response);
@@ -110,9 +116,25 @@ angular.module('starter.controllers', ['starter.services'])
       }, $scope.modulo);
     }
 
-      $state.go("app.moduleList");
+    $state.go("app.moduleList");
   };
 
+
+})
+
+.controller('sublistsCtrl', function($scope, $state, $stateParams, SublistFactory) {
+  console.log(parseInt($stateParams.id));
+  SublistFactory.getListSubmodule().query({
+      idmodulo: parseInt($stateParams.id)
+    })
+    .$promise.then(
+      function(response) {
+        console.log(response);
+        $scope.listModules = response
+      },
+      function(response) {
+        console.log("Error: " + response.status + " " + response.statusText);
+      });
 
 })
 

@@ -1,4 +1,4 @@
-<ion-view view-title="module list">
+<ion-view view-title="submodule list">
   <ion-nav-buttons side="right">
     <button class="button button-icon button-clear ion-plus-circled" ng-click="create()">
     </button>
@@ -12,7 +12,7 @@
 
         <ion-option-button class="ion-edit" ng-click="update({{list}})">
         </ion-option-button>
-        <ion-option-button class="ion-clipboard" ng-click="findSub({{list.id}})">
+        <ion-option-button class="ion-clipboard" ng-click="">
         </ion-option-button>
         <ion-delete-button class="ion-close-circled" ng-click="delete({{list.id}}); listModules.splice($index, 1)">
         </ion-delete-button>
