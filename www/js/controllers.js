@@ -41,7 +41,24 @@ angular.module('starter.controllers', ['starter.services'])
   };
 })
 
-.controller('listsCtrl', function($scope, ListFactory) {
+.controller('listsCtrl', function($scope, $state, $stateParams, ListFactory) {
+
+  $scope.update = function(data){
+    console.log(data);
+    $state.go("app.module", {data:JSON.stringify(data)});
+
+  };
+
+  $scope.create = function(){
+    $state.go("app.module", {data: '{}'});
+
+  };
+
+  $scope.delete = function(data){
+
+  };
+
+  //console.log($stateParams);
 
   ListFactory.getListModule().query(
     function(response) {
@@ -51,6 +68,27 @@ angular.module('starter.controllers', ['starter.services'])
     function(response) {
       console.log("Error: " + response.status + " " + response.statusText);
     });
+
+})
+
+.controller('moduleCtrl', function($scope, $stateParams, ListFactory) {
+
+  $scope.modulo = {
+    "id": '',
+    "nombre":'',
+    "codmodulo":''
+  };
+
+  console.log($stateParams);
+  var state = angular.fromJson($stateParams.data);
+  if (angular.equals({}, state)) {
+    $scope.data = $scope.modulo;
+    console.log("crea");
+  }
+  else {
+      $scope.data = state;
+      console.log("actualiza");
+  }
 
 })
 
