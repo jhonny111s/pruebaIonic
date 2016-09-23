@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['starter.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -41,15 +41,21 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('listsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+.controller('listsCtrl', function($scope, ListFactory) {
+
+ $scope.shouldShowDelete = false;
+ $scope.shouldShowReorder = false;
+ $scope.listCanSwipe = true
+
+  ListFactory.getListModule().query(
+  function(response) {
+   console.log(response);
+   $scope.playlists = response
+  },
+  function(response) {
+    console.log("Error: " + response.status + " " + response.statusText);
+  });
+
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
