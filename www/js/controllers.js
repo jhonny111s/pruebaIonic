@@ -43,20 +43,15 @@ angular.module('starter.controllers', ['starter.services'])
 
 .controller('listsCtrl', function($scope, ListFactory) {
 
- $scope.shouldShowDelete = false;
- $scope.shouldShowReorder = false;
- $scope.listCanSwipe = true
-
   ListFactory.getListModule().query(
-  function(response) {
-   console.log(response);
-   $scope.playlists = response
-  },
-  function(response) {
-    console.log("Error: " + response.status + " " + response.statusText);
-  });
+    function(response) {
+      console.log(response);
+      $scope.listModules = response
+    },
+    function(response) {
+      console.log("Error: " + response.status + " " + response.statusText);
+    });
 
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+.controller('PlaylistCtrl', function($scope, $stateParams) {});

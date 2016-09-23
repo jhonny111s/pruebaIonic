@@ -1,8 +1,7 @@
-
 <ion-view view-title="module list">
   <ion-content>
-    <ion-list show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe">
-      <ion-item ng-repeat="list in playlists" href="#/app/list/{{list.id}}">
+    <ion-list>
+      <ion-item ng-repeat="list in listModules" href="#/app/list/{{list.id}}">
         {{list.nombre}}
 
         <ion-option-button class="ion-edit" ng-click="">
