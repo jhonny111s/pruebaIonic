@@ -43,22 +43,35 @@ angular.module('starter.controllers', ['starter.services'])
 
 .controller('listsCtrl', function($scope, $state, $stateParams, ListFactory) {
 
-  $scope.update = function(data){
+  $scope.shouldShowDelete = false;
+
+  $scope.showDelete = function() {
+    $scope.shouldShowDelete = !$scope.shouldShowDelete;
+  };
+
+  $scope.update = function(data) {
     console.log(data);
-    $state.go("app.module", {data:JSON.stringify(data)});
+    $state.go("app.module", {
+      data: JSON.stringify(data)
+    });
 
   };
 
-  $scope.create = function(){
-    $state.go("app.module", {data: '{}'});
+  $scope.create = function() {
+    $state.go("app.module", {
+      data: '{}'
+    });
 
   };
 
-  $scope.delete = function(data){
-
+  $scope.delete = function(id) {
+    console.log(id);
+    ListFactory.getListModule().delete({
+      id: id
+    }, function(resp) {
+      console.log(resp)
+    });
   };
-
-  //console.log($stateParams);
 
   ListFactory.getListModule().query(
     function(response) {
@@ -71,24 +84,35 @@ angular.module('starter.controllers', ['starter.services'])
 
 })
 
-.controller('moduleCtrl', function($scope, $stateParams, ListFactory) {
+.controller('moduleCtrl', function($scope, $state, $stateParams, ListFactory) {
 
+  var state = angular.fromJson($stateParams.data);
+  $scope.buttonSubmit = 'Guardar';
   $scope.modulo = {
-    "id": '',
-    "nombre":'',
-    "codmodulo":''
+    "nombre": '',
+    "codmodulo": ''
   };
 
-  console.log($stateParams);
-  var state = angular.fromJson($stateParams.data);
   if (angular.equals({}, state)) {
-    $scope.data = $scope.modulo;
-    console.log("crea");
+    $scope.buttonSubmit = 'Guardar';
+  } else {
+    $scope.modulo = state;
+    $scope.buttonSubmit = 'Actualizar';
   }
-  else {
-      $scope.data = state;
-      console.log("actualiza");
-  }
+
+
+  $scope.submitForm = function() {
+    if (angular.equals({}, state)) {
+      ListFactory.getListModule().save($scope.modulo);
+    } else {
+      ListFactory.getListModule().update({
+        id: $scope.modulo.id
+      }, $scope.modulo);
+    }
+
+      $state.go("app.moduleList");
+  };
+
 
 })
 

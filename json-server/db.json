@@ -16,9 +16,14 @@
       "codmodulo": "m3"
     },
     {
-      "id": 4,
-      "nombre": "modulo 4",
-      "codmodulo": "m4"
+      "nombre": "Modulo 4",
+      "codmodulo": "Modulo 4",
+      "id": 4
+    },
+    {
+      "nombre": "ddddddd",
+      "codmodulo": "dddddddddddd",
+      "id": 5
     }
   ],
   "promotions": [
