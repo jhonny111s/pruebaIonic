@@ -1,9 +1,9 @@
 var connection = require('../connection');
 
 function Submodulo() {
-  this.getAll = function(res) {
+  this.getAll = function(todo, res) {
     connection.acquire(function(err, con) {
-      con.query('select * from submodulo', function(err, result) {
+      con.query('select * from submodulo idmodulo= ?',[todo], function(err, result) {
         con.release();
         res.send(result);
       });
@@ -11,7 +11,9 @@ function Submodulo() {
   };
 
    this.get = function(idmodulo, res) {
-    console.log(id);
+console.log("entroooo");
+    console.log(idmodulo);
+
     connection.acquire(function(err, con) {
       con.query('select * from submodulo where idmodulo= ?', [idmodulo],  function(err, result) {
         con.release();
@@ -36,7 +38,7 @@ function Submodulo() {
 
   this.update = function(todo, res) {
     connection.acquire(function(err, con) {
-      con.query('update submodulo set ? where id = ?', [todo, todo.id], function(err, result) {
+      con.query('update submodulo set ? where id = ?', [todo, todo.idmodulo], function(err, result) {
         con.release();
         if (err) {
           res.send({status: 1, message: 'TODO update failed'});

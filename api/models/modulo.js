@@ -35,6 +35,7 @@ function Modulo() {
   };
 
   this.update = function(todo, res) {
+    console.log(todo);
     connection.acquire(function(err, con) {
       con.query('update modulo set ? where id = ?', [todo, todo.id], function(err, result) {
         con.release();

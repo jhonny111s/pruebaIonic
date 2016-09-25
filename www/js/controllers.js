@@ -108,12 +108,11 @@ angular.module('starter.controllers', ['starter.services'])
 
 
   $scope.submitForm = function() {
+    console.log($scope.modulo);
     if (angular.equals({}, state)) {
       ListFactory.getListModule().save($scope.modulo);
     } else {
-      ListFactory.getListModule().update({
-        id: $scope.modulo.id
-      }, $scope.modulo);
+      ListFactory.getListModule().update({}, $scope.modulo);
     }
 
     $state.go("app.moduleList");
@@ -171,9 +170,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 .controller('submoduleCtrl', function($scope, $state, $stateParams, SublistFactory, ListFactory) {
 
-
-
-  ListFactory.getListModule().query(
+  SublistFactory.getListSubmodule().query(
   function(response) {
    $scope.optionSelect = response;
   },
