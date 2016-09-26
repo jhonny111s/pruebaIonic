@@ -147,13 +147,12 @@ angular.module('starter.controllers', ['starter.services'])
   $scope.delete = function(id) {
     console.log(id);
     SublistFactory.getListSubmodule().delete({
-      id: id
+      idmodulo: id
     }, function(resp) {
       console.log(resp)
     });
   };
 
-  console.log(parseInt($stateParams.id));
   SublistFactory.getListSubmodule().query({
       idmodulo: parseInt($stateParams.id)
     })
@@ -170,7 +169,7 @@ angular.module('starter.controllers', ['starter.services'])
 
 .controller('submoduleCtrl', function($scope, $state, $stateParams, SublistFactory, ListFactory) {
 
-  SublistFactory.getListSubmodule().query(
+  ListFactory.getListModule().query(
   function(response) {
    $scope.optionSelect = response;
   },
@@ -187,9 +186,8 @@ angular.module('starter.controllers', ['starter.services'])
     "idmodulo": ''
   };
 
-  console.log("state");
-  console.log(state);
   if (angular.equals({}, state)) {
+    $scope.submodulo.idmodulo = state.idmodulo;
     $scope.buttonSubmit = 'Guardar';
     console.log($scope.submodulo);
   } else {
