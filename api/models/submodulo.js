@@ -27,7 +27,7 @@ function Submodulo() {
     connection.acquire(function(err, con) {
        con.input('nombre', todo.nombre);
        con.input('idmodulo', todo.idmodulo);
-      con.query('insert into submodulo set (nombre, idmodulo) values (@nombre, @idmodulo)', function(err, result, value) {
+      con.query('insert into submodulo (nombre, idmodulo) values (@nombre, @idmodulo)', function(err, result, value) {
         if (err) {
           res.send({status: 1, message: 'TODO creation failed'});
         } else {
@@ -38,6 +38,7 @@ function Submodulo() {
   };
 
   this.update = function(todo, res) {
+    console.log(todo);
     connection.acquire(function(err, con) {
        con.input('id', todo.id);
        con.input('idmodulo', todo.idmodulo);
