@@ -1,22 +1,22 @@
 var connection = require('../connection');
 
 function Submodulo() {
-  this.getAll = function(todo, res) {
+  this.getAll = function(id, res) {
     connection.acquire(function(err, con) {
-      con.query('select * from submodulo idmodulo= ?',[todo], function(err, result) {
-        con.release();
+       con.input('idmodulo', id);
+      con.query('select * from submodulo idmodulo= @idmodulo', function(err, result) {
         res.send(result);
       });
     });
   };
 
    this.get = function(idmodulo, res) {
-console.log("entroooo");
+
     console.log(idmodulo);
 
     connection.acquire(function(err, con) {
-      con.query('select * from submodulo where idmodulo= ?', [idmodulo],  function(err, result) {
-        con.release();
+       con.input('idmodulo', idmodulo);
+      con.query('select * from submodulo where idmodulo= @idmodulo',  function(err, result) {
         res.send(result);
       });
     });
@@ -25,8 +25,9 @@ console.log("entroooo");
   this.create = function(todo, res) {
     console.log(todo);
     connection.acquire(function(err, con) {
-      con.query('insert into submodulo set ?', todo, function(err, result) {
-        con.release();
+       con.input('nombre', todo.nombre);
+       con.input('idmodulo', todo.idmodulo);
+      con.query('insert into submodulo set (nombre, idmodulo) values (@nombre, @idmodulo)', function(err, result, value) {
         if (err) {
           res.send({status: 1, message: 'TODO creation failed'});
         } else {
@@ -38,8 +39,10 @@ console.log("entroooo");
 
   this.update = function(todo, res) {
     connection.acquire(function(err, con) {
-      con.query('update submodulo set ? where id = ?', [todo, todo.idmodulo], function(err, result) {
-        con.release();
+       con.input('id', todo.id);
+       con.input('idmodulo', todo.idmodulo);
+       con.input('nombre', todo.nombre);
+      con.query('update submodulo set nombre= @nombre, idmodulo= @idmodulo where id = @id', function(err, result, value) {
         if (err) {
           res.send({status: 1, message: 'TODO update failed'});
         } else {
@@ -51,8 +54,8 @@ console.log("entroooo");
 
   this.delete = function(id, res) {
     connection.acquire(function(err, con) {
-      con.query('delete from submodulo where id = ?', [id], function(err, result) {
-        con.release();
+       con.input('id', id);
+      con.query('delete from submodulo where id = @id', function(err, result) {
         if (err) {
           res.send({status: 1, message: 'Failed to delete'});
         } else {
